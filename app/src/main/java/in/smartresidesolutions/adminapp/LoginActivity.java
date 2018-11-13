@@ -10,11 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import in.smartresidesolutions.adminapp.model.LoginBean;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    int loginResponse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +44,38 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent activityChangeIntent = new Intent(view.getContext(),Navigation.class);
-                startActivity(activityChangeIntent);
+
+
+                LoginApiInterface apiService =
+                        LoginApiClient.getClient().create(LoginApiInterface.class);
+
+
+                Call<LoginBean> call = apiService.getUser();
+                call.enqueue(new Callback<LoginBean>() {
+                    @Override
+                    public void onResponse(Call<LoginBean>call, Response<LoginBean> response) {
+                        LoginBean loginBean = response.body();
+                        if(loginBean.getUsername().equals("abhinav")){
+                            loginResponse=1;
+                        }
+                        else{
+                            loginResponse=0;
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginBean> call, Throwable t) {
+
+                    }
+                });
+
+                if(loginResponse==1) {
+                    Intent activityChangeIntent = new Intent(view.getContext(), Navigation.class);
+                    startActivity(activityChangeIntent);
+                }
+
+
             }
         });
 
@@ -52,5 +88,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         */
+
+
+
+
+
+
     }
 }
