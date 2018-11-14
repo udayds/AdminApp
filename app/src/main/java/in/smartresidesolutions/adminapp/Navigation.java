@@ -1,12 +1,9 @@
 package in.smartresidesolutions.adminapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -79,9 +76,9 @@ public class Navigation extends AppCompatActivity
         Class fragmentClass=null;
         if (id == R.id.access_control) {
 
-          //  fragmentClass=AccessControl.class;
+            fragmentClass=AccessControl.class;
         } else if (id == R.id.add_role) {
-
+            fragmentClass=AddRole.class;
         } else if (id == R.id.nav_home) {
 
         } else if (id == R.id.nav_contactUs) {
